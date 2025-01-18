@@ -20,7 +20,7 @@ $cd ~
 at different terminal tabs
 ```
 $roslaunch evry_project_description simu_robot.launch
-$roslaunch evry_project_strategy agent.launch nbr_robot:=1
+$roslaunch evry_project_strategy agent.launch nbr_robot:=1 # robot one 
 ```
 STEP 4: MOVE ONE ROBOT TO THE CORRESPONDING FLAG 
 Q6: To modify the program to move one robot safely to its corresponding flag and stop it at this position with constant speed, we used the following code
@@ -78,6 +78,13 @@ The PID class is used to feed a variable speed to the robot according to the err
 STEP 5: Implementation of one strategy - timing solution to make sure robots do not collide with each other! 
 Q8: We implemented one of the simplest strategy: timing strategy. 
 The timing strategy is used to start each robot at different time. In this way, we avoided collision.
+Adding this code to the run_demo function before the while loop will start each robot in 5 seconds gap.
+```
+# Timing strategy
+    rospy.sleep(5*int(robot_name[-1]))
+```
+
+Timing with PID controller
 ```
 def run_demo():
     """Main loop"""
@@ -146,24 +153,24 @@ The <timing.launch> file includes the following code
   <arg name="nbr_robot" default="3"/>
 
   <!--MAIN CODE-->
-  <node pkg="evry_project_strategy" type="timing.py" name="agent_1" output="screen" if="$(eval arg('nbr_robot') > 0)">
+  <node pkg="evry_project_strategy" type="timing_strategy.py" name="agent_1" output="screen" if="$(eval arg('nbr_robot') > 0)">
     <param name="robot_name" value="robot_1"/>
   </node>
 
-  <node pkg="evry_project_strategy" type="timing.py" name="agent_2" output="screen" if="$(eval arg('nbr_robot') > 1)">
+  <node pkg="evry_project_strategy" type="timing_strategy.py" name="agent_2" output="screen" if="$(eval arg('nbr_robot') > 1)">
     <param name="robot_name" value="robot_2"/>
   </node>
 
-  <node pkg="evry_project_strategy" type="timing.py" name="agent_3" output="screen" if="$(eval arg('nbr_robot') > 2)">
+  <node pkg="evry_project_strategy" type="timing_strategy.py" name="agent_3" output="screen" if="$(eval arg('nbr_robot') > 2)">
     <param name="robot_name" value="robot_3"/>
   </node>
 
 </launch>
 ```
 
-The aim of the launch file is calling the specific strategy during simulation. We can use as follows in the terminal:
+The aim of the launch file is calling the specific strategy during simulation. We can use the strategy as follows in the terminal:
 ```
-$roslaunch evry_project_strategy timing.launch
+$roslaunch evry_project_strategy timing_strategy.launch
 ```
 
 # Lab 2
