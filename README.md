@@ -228,9 +228,38 @@ $roslaunch evry_project_strategy timing.launch
         msg.angular.z = angular_z
         self.cmd_vel_pub.publish(msg)
 ```
+
+   launch file for the above strategy:
    
-3. Bonus: You can add some obstacles and move the flags to test the robustness of your strategy.
+   The <robust_strategy.launch> file includes the following code
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="nbr_robot" default="3"/>
+
+  <!--MAIN CODE-->
+  <node pkg="evry_project_strategy" type="robust_strategy.py" name="agent_1" output="screen" if="$(eval arg('nbr_robot') > 0)">
+    <param name="robot_name" value="robot_1"/>
+  </node>
+
+  <node pkg="evry_project_strategy" type="robust_strategy.py" name="agent_2" output="screen" if="$(eval arg('nbr_robot') > 1)">
+    <param name="robot_name" value="robot_2"/>
+  </node>
+
+  <node pkg="evry_project_strategy" type="robust_strategy.py" name="agent_3" output="screen" if="$(eval arg('nbr_robot') > 2)">
+    <param name="robot_name" value="robot_3"/>
+  </node>
+
+</launch>
 ```
 
+We can use the strategy as follows in the terminal:
 ```
+$roslaunch evry_project_strategy robust_strategy.launch
+```
+
+2. Bonus: You can add some obstacles and move the flags to test the robustness of your strategy.
+The robust strategy is tested and the result is supported by the attached video.
+
  
