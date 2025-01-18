@@ -182,8 +182,10 @@ $roslaunch evry_project_strategy timing_strategy.launch
    If the information is well filtered and managed in regions, we can set actions according to the sonar response.
    Below is the strategy designed to access the sonar info and set of actions per region.
 
-Type of Strategy
+# Type of Strategy
+
 This strategy is a rule-based reactive approach. The robot uses pre-defined rules to decide its movement based on the distance readings in different "regions" of its environment. These regions likely correspond to sensor inputs divided into front, front-left (fleft), and front-right (fright) areas.
+
 # Key Characteristics of the Strategy
 ## Reactive:
   The robot reacts directly to sensor inputs without any map of the environment or pre-planned path.
