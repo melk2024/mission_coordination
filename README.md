@@ -11,7 +11,13 @@ cd ~/catkin_ws/src && git clone https://github.com/melk2024/mission_coordination
 
 cd ~/catkin_ws && catkin_make && source ~/catkin_ws/devel/setup.bash
 ```
-We can start our simulation by running the following codes at different terminal tabs.
+We can start our simulation by running the following codes.
+```
+$cd /home/user/catkin_ws/src/Mission_Coordination_project/evry_project_strategy/nodes
+$chmod +x agent.py
+$cd ~
+```
+at different terminal tabs
 ```
 $roslaunch evry_project_description simu_robot.launch
 $roslaunch evry_project_strategy agent.launch nbr_robot:=1
