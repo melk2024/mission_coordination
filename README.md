@@ -62,6 +62,10 @@ class PIDController:
 ```
 
 Now lets use the PID class in the demo section
+
+STEP 5: Implementation of one strategy - timing solution to make sure robots do not collide with each other! 
+Q8: We implemented one of the simplest strategy: timing strategy. 
+The timing strategy is used to start each robot at different time. In this way, we avoided collision.
 ```
 def run_demo():
     """Main loop"""
@@ -118,4 +122,29 @@ def run_demo():
         rospy.sleep(0.5)
 ```
 
+The 3 robots started moving at different time and collission between robots efficiently avoided.
 
+
+Q9: Write a launch file for this strategy.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="nbr_robot" default="3"/>
+
+  <!--MAIN CODE-->
+  <node pkg="evry_project_strategy" type="timing.py" name="agent_1" output="screen" if="$(eval arg('nbr_robot') > 0)">
+    <param name="robot_name" value="robot_1"/>
+  </node>
+
+  <node pkg="evry_project_strategy" type="timing.py" name="agent_2" output="screen" if="$(eval arg('nbr_robot') > 1)">
+    <param name="robot_name" value="robot_2"/>
+  </node>
+
+  <node pkg="evry_project_strategy" type="timing.py" name="agent_3" output="screen" if="$(eval arg('nbr_robot') > 2)">
+    <param name="robot_name" value="robot_3"/>
+  </node>
+
+</launch>
+```
