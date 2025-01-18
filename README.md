@@ -201,10 +201,12 @@ This strategy is a rule-based reactive approach. The robot uses pre-defined rule
 # How It Works
 The robot divides the area into three regions: front, front-left, and front-right.
 Based on the sensor readings for these regions:
+```
   If no obstacles are detected (e.g., regions['front'] > 1), it moves forward.
   If an obstacle is detected in the front (regions['front'] < 1), it stops or turns to avoid it.
   If obstacles are on one side (e.g., fleft < 1 or fright < 1), it turns away from them.
   If obstacles are in multiple regions, it prioritizes turning to clear the front or avoid multiple obstacles.
+```
 
 ```
    def callbackLaser(self, msg):
