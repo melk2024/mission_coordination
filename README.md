@@ -179,8 +179,30 @@ $roslaunch evry_project_strategy timing_strategy.launch
    (at least one strategy) - The more strategies you implement, the better. - If one flag is moved, and some obstacles added;
    each robot should be able to reach its goal.
    The robust strategy of robot motion is related to the way how to use information from the sonar sensor.
-   If the information is well filtered and managed in regions,   we can set actions according to the sonar response.
+   If the information is well filtered and managed in regions, we can set actions according to the sonar response.
    Below is the strategy designed to access the sonar info and set of actions per region.
+
+Type of Strategy
+This strategy is a rule-based reactive approach. The robot uses pre-defined rules to decide its movement based on the distance readings in different "regions" of its environment. These regions likely correspond to sensor inputs divided into front, front-left (fleft), and front-right (fright) areas.
+# Key Characteristics of the Strategy
+## Reactive:
+  The robot reacts directly to sensor inputs without any map of the environment or pre-planned path.
+  Decisions are made in real time based on the current state of the environment.
+## Rule-Based:
+  The robot's actions are determined by hardcoded rules (e.g., if regions['front'] < 1, turn).
+  Each rule corresponds to a specific sensor configuration (e.g., obstacles detected in front, left, or right).
+## Short-Term Decision Making:
+  The robot doesn't remember past actions or states, making it a purely reactive system.
+## Obstacle Avoidance:
+  The robot detects obstacles using the sensors and adjusts its linear (linear_x) and angular (angular_z) velocities accordingly to avoid collisions.
+
+# How It Works
+The robot divides the area into three regions: front, front-left, and front-right.
+Based on the sensor readings for these regions:
+  If no obstacles are detected (e.g., regions['front'] > 1), it moves forward.
+  If an obstacle is detected in the front (regions['front'] < 1), it stops or turns to avoid it.
+  If obstacles are on one side (e.g., fleft < 1 or fright < 1), it turns away from them.
+  If obstacles are in multiple regions, it prioritizes turning to clear the front or avoid multiple obstacles.
 
 ```
    def callbackLaser(self, msg):
