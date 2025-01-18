@@ -183,7 +183,7 @@ $roslaunch evry_project_strategy timing_strategy.launch
    Below is the strategy designed to access the sonar info and set of actions per region.
 
 ```
-   def callbackLaser(self, msg):
+   def callbacksonar(self, msg):
         regions = {
             'right': min(min(msg.ranges[0:143]), 10),
             'fright': min(min(msg.ranges[144:287]), 10),
