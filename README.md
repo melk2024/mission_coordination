@@ -145,7 +145,7 @@ The 3 robots started moving at different time and collission between robots effi
 
 
 Q9: Write a launch file for this strategy.
-The <timing.launch> file includes the following code
+The <timing_strategy.launch> file includes the following code
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -207,7 +207,7 @@ Based on the sensor readings for these regions:
   If obstacles are on one side (e.g., fleft < 1 or fright < 1), it turns away from them.
   If obstacles are in multiple regions, it prioritizes turning to clear the front or avoid multiple obstacles.
 ```
-
+This is included in the robust_strategy.py
 ```
    def callbackLaser(self, msg):
         regions = {
